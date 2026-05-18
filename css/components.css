@@ -1517,6 +1517,136 @@ body[data-runtime='critical'] .viewer-core {
   overflow-wrap: anywhere;
 }
 
+@media (max-width: 980px) {
+  .panel {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .panel-header {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .panel-title {
+    font-size: 28px;
+    line-height: 1.1;
+  }
+
+  .terminal-panel .panel-title,
+  .alerts-panel .panel-title,
+  .ai-panel .panel-title,
+  .slicer-panel .panel-title,
+  .controls-panel .panel-title {
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-right: 0;
+    overflow: visible;
+  }
+
+  .metric-card {
+    padding: 16px;
+  }
+
+  .metric-value {
+    font-size: 26px;
+  }
+
+  .terminal-stream,
+  .model-list,
+  .ai-chat,
+  .alerts-feed,
+  .slicer-settings {
+    padding-right: 0;
+  }
+
+  .terminal-line {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .terminal-time {
+    flex-basis: 56px;
+    min-width: 56px;
+  }
+
+  .action-cluster,
+  .defect-buttons,
+  .job-card-meta,
+  .preset-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .model-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .model-preview {
+    width: 100%;
+    height: 92px;
+  }
+
+  .model-info {
+    gap: 6px;
+  }
+
+  .ai-input-wrapper {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .ai-send-button {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .slicer-setting-top,
+  .toggle-row,
+  .control-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .slicer-setting-value,
+  .control-value {
+    text-align: left;
+  }
+
+  .toggle-row .switch {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .panel {
+    padding: 14px;
+  }
+
+  .panel-title {
+    font-size: 24px;
+  }
+
+  .terminal-panel .panel-title,
+  .alerts-panel .panel-title,
+  .ai-panel .panel-title,
+  .slicer-panel .panel-title,
+  .controls-panel .panel-title {
+    font-size: 20px;
+  }
+
+  .metric-value {
+    font-size: 22px;
+  }
+}
+
 .toggle-meta {
   font-size: 12px;
 

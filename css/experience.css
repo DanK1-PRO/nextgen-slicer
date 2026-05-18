@@ -3389,49 +3389,73 @@ body[data-runtime='recovering'] .proof-card-status {
 @media (max-width: 980px) {
   .stage-rail {
     order: 3;
+    width: 100%;
+    min-width: 0;
   }
 
   .viewer-core {
-    height: 290px;
+    height: min(56vh, 360px);
   }
 
   .viewer-stage-shell {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .viewer-inspector {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 14px;
+    gap: 12px;
   }
 
   .viewer-layer-slider {
-    right: 14px;
-    top: 16px;
-    width: 76px;
+    right: 12px;
+    top: 12px;
+    width: 68px;
   }
 
   .viewer-path-slider {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
   }
 
   .viewer-volume-frame {
-    inset: 24px 36px 52px 30px;
+    inset: 24px 24px 56px 24px;
   }
 
   .viewer-volume-plane {
-    left: 42px;
-    right: 50px;
+    left: 28px;
+    right: 28px;
   }
 
   .viewer-runtime-status-top,
   .viewer-runtime-status-bottom {
+    align-items: stretch;
     gap: 8px;
+  }
+
+  .viewer-runtime-status-top {
+    margin-bottom: 10px;
+    padding-right: 0;
   }
 
   .viewer-runtime-status-top .viewer-tag,
   .viewer-runtime-status-bottom .viewer-tag {
     flex: 1 1 100%;
+    max-width: none;
+  }
+
+  #viewerMachineLabel,
+  #viewerProfileLabel,
+  #viewerSupportLabel,
+  #currentCommandText,
+  #viewerStageHint,
+  #viewerActionHint {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .viewer-monitor-mode {
@@ -3444,18 +3468,18 @@ body[data-runtime='recovering'] .proof-card-status {
   }
 
   .viewer-printer-3d {
-    inset: 24px 26px 34px;
+    inset: 16px 18px 26px;
   }
 
   .viewer-3d-bed,
   .viewer-3d-bed-grid {
-    left: 30px;
-    right: 30px;
-    height: 104px;
+    left: 24px;
+    right: 24px;
+    height: 92px;
   }
 
   .viewer-3d-frame {
-    inset: 26px 22px 56px;
+    inset: 20px 18px 46px;
   }
 
   .job-card-meta,
@@ -3463,6 +3487,59 @@ body[data-runtime='recovering'] .proof-card-status {
   .action-cluster,
   .defect-buttons {
     grid-template-columns: 1fr;
+  }
+
+  #viewerFullscreenButton {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    min-width: 0;
+    order: 4;
+  }
+
+  .viewer-runtime-status-bottom {
+    margin-top: 10px;
+    flex-direction: column;
+  }
+
+  .viewer-stage-caption {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    max-width: none;
+  }
+
+  .viewer-monitor-switcher {
+    inset: 12px 12px 74px;
+  }
+
+  #viewerPanel:fullscreen .viewer-overlay {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  #viewerPanel:fullscreen .viewer-runtime {
+    height: calc(100vh - 88px);
+  }
+
+  #viewerPanel:fullscreen .viewer-stage-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #viewerPanel:fullscreen .viewer-inspector {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 14px;
+  }
+
+  #viewerPanel:fullscreen #viewerFullscreenButton {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    min-width: 0;
   }
 }
 
@@ -3494,6 +3571,37 @@ body[data-runtime='recovering'] .proof-card-status {
   .proof-grid,
   .print-job-stats {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .viewer-core {
+    height: min(52vh, 320px);
+    border-radius: 18px;
+  }
+
+  .viewer-inspector {
+    grid-template-columns: 1fr;
+  }
+
+  .viewer-layer-slider {
+    width: 62px;
+  }
+
+  .viewer-tag {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  .viewer-stage-caption strong,
+  .viewer-inspector-value {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .viewer-stage-caption span,
+  .viewer-inspector-label {
+    font-size: 10px;
   }
 }
 

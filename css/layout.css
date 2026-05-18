@@ -917,6 +917,7 @@ body[data-stage='monitor'] .ai-panel {
 
 @media (max-width: 980px) {
   body {
+    overflow-x: hidden;
     overflow-y: auto;
   }
 
@@ -925,57 +926,133 @@ body[data-stage='monitor'] .ai-panel {
     flex-direction: column;
     height: auto;
     min-height: 100vh;
+    overflow: visible;
   }
 
   .sidebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
     width: 100%;
 
+    padding:
+      10px
+      12px
+      calc(10px + env(safe-area-inset-bottom));
+
     border-right: none;
-    border-bottom:
+    border-top:
       1px solid var(--border-primary);
+    border-bottom: none;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(8,12,18,0.98),
+        rgba(9,14,22,0.98)
+      );
+
+    box-shadow:
+      0 -16px 38px rgba(0,0,0,0.28);
+
+    z-index: 40;
   }
 
-  .logo-copy,
-  .runtime-badge-info {
-    display: flex;
+  .logo,
+  .sidebar-footer {
+    display: none;
   }
 
-  .nav-label,
-  .nav-item-index,
+  .nav {
+    gap: 12px;
+  }
+
+  .nav-section {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  .nav-label {
+    grid-column: 1 / -1;
+    padding: 0 4px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .nav-item-index {
+    display: none;
+  }
+
   .nav-item-text {
     display: block;
+    font-size: 10px;
+    line-height: 1.25;
+    text-align: center;
   }
 
   .nav-item {
-    justify-content: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 72px;
+    padding: 10px 8px;
+    border-radius: 16px;
   }
 
-  .logo {
-    justify-content: flex-start;
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
   }
 
   .workspace {
-    padding: 14px;
+    order: 1;
+    padding:
+      12px
+      12px
+      calc(132px + env(safe-area-inset-bottom));
+    overflow: visible;
   }
 
   .topbar {
+    position: sticky;
+    top: 10px;
+
     flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
+    align-items: stretch;
+    gap: 12px;
 
     padding:
-      18px
-      20px;
+      16px
+      16px;
+
+    margin-bottom: 14px;
+
+    z-index: 30;
+  }
+
+  .runtime-status,
+  .system-controls,
+  .ai-confidence {
+    width: 100%;
+    min-width: 0;
   }
 
   .system-controls {
-    width: 100%;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch;
+    gap: 10px;
   }
 
   .audio-control {
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   .audio-volume-control {
@@ -983,12 +1060,93 @@ body[data-stage='monitor'] .ai-panel {
     min-width: 96px;
   }
 
+  .ai-confidence {
+    justify-content: space-between;
+  }
+
   .dashboard-grid {
     display: flex;
     flex-direction: column;
+    gap: 14px;
   }
 
   .viewer-panel {
-    min-height: 420px;
+    min-height: 0;
+  }
+
+  body[data-stage='prepare'] .viewer-panel {
+    order: 1;
+  }
+
+  body[data-stage='prepare'] .slicer-panel {
+    order: 2;
+  }
+
+  body[data-stage='prepare'] .models-panel {
+    order: 3;
+  }
+
+  body[data-stage='preview'] .viewer-panel {
+    order: 1;
+  }
+
+  body[data-stage='preview'] .alerts-panel {
+    order: 2;
+  }
+
+  body[data-stage='preview'] .models-panel {
+    order: 3;
+  }
+
+  body[data-stage='monitor'] .viewer-panel {
+    order: 1;
+  }
+
+  body[data-stage='monitor'] .telemetry-panel {
+    order: 2;
+  }
+
+  body[data-stage='monitor'] .controls-panel {
+    order: 3;
+  }
+
+  body[data-stage='monitor'] .alerts-panel {
+    order: 4;
+  }
+
+  body[data-stage='monitor'] .terminal-panel {
+    order: 5;
+  }
+
+  body[data-stage='monitor'] .ai-panel {
+    order: 6;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav-section {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .topbar {
+    top: 8px;
+    padding: 14px;
+  }
+
+  .runtime-label,
+  .ai-confidence-label {
+    font-size: 10px;
+  }
+
+  .runtime-value {
+    font-size: 22px;
+    line-height: 1.1;
+  }
+
+  .workspace {
+    padding:
+      10px
+      10px
+      calc(136px + env(safe-area-inset-bottom));
   }
 }
