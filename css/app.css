@@ -1,0 +1,507 @@
+/* =========================================
+   NEXTGEN SLICER
+   APPLICATION TOKENS
+========================================= */
+
+:root {
+
+  /* =====================================
+     TYPOGRAPHY
+  ===================================== */
+
+  --font-primary:
+    "Inter",
+    "Segoe UI",
+    sans-serif;
+
+  --font-mono:
+    "JetBrains Mono",
+    "Fira Code",
+    monospace;
+
+  /* =====================================
+     RADIUS
+  ===================================== */
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-round: 999px;
+
+  /* =====================================
+     SPACING
+  ===================================== */
+
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* =====================================
+     TRANSITIONS
+  ===================================== */
+
+  --transition-fast:
+    140ms ease;
+
+  --transition-base:
+    240ms ease;
+
+  --transition-slow:
+    420ms ease;
+
+  /* =====================================
+     Z-INDEX
+  ===================================== */
+
+  --z-background: 0;
+  --z-layout: 10;
+  --z-panel: 20;
+  --z-overlay: 40;
+  --z-modal: 80;
+
+  /* =====================================
+     COLORS
+  ===================================== */
+
+  --color-black:
+    #040506;
+
+  --color-background:
+    #071018;
+
+  --color-background-alt:
+    #0d1824;
+
+  --color-surface:
+    rgba(18, 28, 39, 0.74);
+
+  --color-surface-solid:
+    #101923;
+
+  --color-surface-hover:
+    rgba(33, 48, 66, 0.92);
+
+  --color-surface-light:
+    rgba(255, 255, 255, 0.06);
+
+  --color-border:
+    rgba(135, 195, 255, 0.12);
+
+  --color-border-strong:
+    rgba(120, 200, 255, 0.34);
+
+  --color-text:
+    #f4fbff;
+
+  --color-text-muted:
+    rgba(212, 228, 240, 0.72);
+
+  --color-text-dim:
+    rgba(185, 205, 218, 0.46);
+
+  --color-primary:
+    #68e8ff;
+
+  --color-primary-soft:
+    rgba(104, 232, 255, 0.18);
+
+  --color-primary-glow:
+    rgba(104, 232, 255, 0.42);
+
+  --color-success:
+    #65ffb8;
+
+  --color-warning:
+    #ffca68;
+
+  --color-danger:
+    #ff5d78;
+
+  --color-danger-glow:
+    rgba(255, 93, 120, 0.34);
+
+  /* =====================================
+     SHADOWS
+  ===================================== */
+
+  --shadow-panel:
+    0 10px 40px rgba(0, 0, 0, 0.34);
+
+  --shadow-glow:
+    0 0 30px rgba(104, 232, 255, 0.12);
+
+  --shadow-glow-strong:
+    0 0 40px rgba(104, 232, 255, 0.24);
+
+  --shadow-danger:
+    0 0 40px rgba(255, 93, 120, 0.16);
+
+  /* =====================================
+     BLUR
+  ===================================== */
+
+  --blur-panel: 18px;
+  --blur-heavy: 30px;
+
+  /* =====================================
+     SIDEBAR
+  ===================================== */
+
+  --sidebar-width:
+    320px;
+
+  /* =====================================
+     DASHBOARD
+  ===================================== */
+
+  --dashboard-gap:
+    20px;
+
+  --dashboard-column:
+    minmax(320px, 1fr);
+
+  --panel-min-height:
+    220px;
+
+  /* =====================================
+     TERMINAL
+  ===================================== */
+
+  --terminal-height:
+    320px;
+
+  /* =====================================
+     HEADER
+  ===================================== */
+
+  --header-height:
+    74px;
+
+  /* =====================================
+     CONTROLS
+  ===================================== */
+
+  --slider-height:
+    6px;
+
+  --toggle-width:
+    58px;
+
+  --toggle-height:
+    30px;
+
+  /* =====================================
+     EFFECTS
+  ===================================== */
+
+  --noise-opacity:
+    0.04;
+
+  --scanline-opacity:
+    0.05;
+
+  --grid-opacity:
+    0.08;
+
+  /* =====================================
+     COMPATIBILITY TOKENS
+  ===================================== */
+
+  --accent-cyan:
+    var(--color-primary);
+
+  --accent-blue:
+    #6ea8ff;
+
+  --border-primary:
+    var(--color-border);
+
+  --text-primary:
+    var(--color-text);
+
+  --text-muted:
+    var(--color-text-muted);
+
+  --text-secondary:
+    var(--color-text-muted);
+
+  --state-stable:
+    var(--color-success);
+
+  --state-warning:
+    var(--color-warning);
+
+  --state-critical:
+    var(--color-danger);
+
+  --panel-radius-sm:
+    var(--radius-sm);
+
+  --panel-radius-md:
+    var(--radius-md);
+
+  --panel-radius-lg:
+    var(--radius-lg);
+
+  --panel-padding-lg:
+    22px;
+
+  --shadow-soft:
+    var(--shadow-panel);
+
+  --shadow-elevated:
+    0 16px 48px rgba(0, 0, 0, 0.42);
+
+  --transition-medium:
+    var(--transition-base);
+
+  --font-size-sm:
+    13px;
+
+  --font-size-md:
+    18px;
+
+  --font-size-lg:
+    24px;
+
+  --font-weight-medium:
+    500;
+
+  --font-weight-semibold:
+    600;
+
+  --font-weight-bold:
+    700;
+
+  --z-sidebar:
+    12;
+
+  --z-topbar:
+    16;
+
+}
+
+/* =========================================
+   GLOBAL THEME
+========================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(28, 60, 88, 0.48),
+      transparent 58%
+    ),
+    linear-gradient(
+      180deg,
+      #071018 0%,
+      #04080d 100%
+    );
+
+  color: var(--color-text);
+
+  font-family:
+    var(--font-primary);
+
+  font-size: 15px;
+
+  line-height: 1.5;
+}
+
+body::before,
+body::after {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+body::before {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px
+    );
+
+  background-size: 96px 96px;
+
+  opacity: 0.18;
+
+  mask-image:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.78),
+      transparent
+    );
+}
+
+body::after {
+  background:
+    radial-gradient(
+      circle at 22% 14%,
+      rgba(104,232,255,0.08),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 78% 18%,
+      rgba(110,168,255,0.09),
+      transparent 24%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.03),
+      transparent 24%
+    );
+
+  opacity: 0.9;
+}
+
+/* =========================================
+   SELECTION
+========================================= */
+
+::selection {
+  background:
+    rgba(104, 232, 255, 0.24);
+
+  color:
+    var(--color-text);
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(104, 232, 255, 0.3)
+    transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background:
+    rgba(104, 232, 255, 0.24);
+
+  border-radius:
+    var(--radius-round);
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* =========================================
+   APP ROOT
+========================================= */
+
+#app {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+/* =========================================
+   GLASS FOUNDATION
+========================================= */
+
+.glass-surface {
+  background:
+    var(--color-surface);
+
+  border:
+    1px solid
+    var(--color-border);
+
+  backdrop-filter:
+    blur(var(--blur-panel));
+
+  -webkit-backdrop-filter:
+    blur(var(--blur-panel));
+
+  box-shadow:
+    var(--shadow-panel);
+}
+
+/* =========================================
+   RUNTIME STATES
+========================================= */
+
+body[data-runtime="stable"] {
+  --runtime-accent:
+    var(--color-primary);
+}
+
+body[data-runtime="warning"] {
+  --runtime-accent:
+    var(--color-warning);
+}
+
+body[data-runtime="critical"] {
+  --runtime-accent:
+    var(--color-danger);
+}
+
+body[data-runtime="recovering"] {
+  --runtime-accent:
+    #8ebdff;
+}
+
+/* =========================================
+   GLOBAL UTILITIES
+========================================= */
+
+.runtime-accent {
+  color:
+    var(--runtime-accent);
+}
+
+.text-muted {
+  color:
+    var(--color-text-muted);
+}
+
+.text-dim {
+  color:
+    var(--color-text-dim);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.noise-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+}

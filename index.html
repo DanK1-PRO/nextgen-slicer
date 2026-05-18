@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NextGen Slicer</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/logo/nextgen-icon.svg" />
+  <link rel="alternate icon" type="image/png" href="./assets/logo/favicon.png" />
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/app.css" />
+  <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/components.css" />
+  <link rel="stylesheet" href="./css/experience.css" />
+</head>
+<body data-runtime="stable" data-stage="prepare" data-nav="slicing" data-monitor-view="3d">
+  <div class="runtime-atmosphere">
+    <div class="runtime-atmosphere-layer layer-blue"></div>
+    <div class="runtime-atmosphere-layer layer-cyan"></div>
+    <div class="runtime-atmosphere-layer layer-purple"></div>
+  </div>
+
+  <div class="boot-loader" id="bootLoader" aria-live="polite">
+    <div class="boot-loader-panel">
+      <img class="boot-loader-grid" src="./assets/ui/boot-grid.svg" alt="" />
+      <div class="boot-loader-mark">
+        <img src="./assets/logo/nextgen-icon.svg" alt="NextGen Slicer" class="boot-loader-logo" />
+      </div>
+      <div class="boot-loader-title">NEXTGEN SLICER</div>
+      <div class="boot-loader-subtitle">Runtime Demo Bootstrap</div>
+      <div class="boot-loader-status" id="bootLoaderStatus">Инициализация интерфейса</div>
+      <div class="boot-loader-progress">
+        <div class="boot-loader-progress-fill" id="bootLoaderProgress"></div>
+      </div>
+      <div class="boot-loader-steps">
+        <span id="bootLoaderStepLabel">0%</span>
+        <span id="bootLoaderHint">Подготовка модулей runtime</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="app">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-copy">
+          <img src="./assets/logo/nextgen-logo.svg" alt="NextGen Slicer" class="logo-wordmark" />
+        </div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-section">
+          <div class="nav-label">Основной контур</div>
+          <button class="nav-item" data-nav="monitoring" data-focus="viewerPanel" data-stage="monitor" type="button">
+            <img src="./assets/icons/dashboard.svg" alt="" class="nav-icon" />
+            <span class="nav-item-index">01</span>
+            <span class="nav-item-text">Мониторинг</span>
+          </button>
+          <button class="nav-item" data-nav="ai" data-focus="aiPanel" data-stage="monitor" type="button">
+            <img src="./assets/icons/ai.svg" alt="" class="nav-icon" />
+            <span class="nav-item-index">02</span>
+            <span class="nav-item-text">AI-анализ</span>
+          </button>
+          <button class="nav-item" data-nav="print" data-focus="controlsPanel" data-stage="monitor" type="button">
+            <img src="./assets/icons/printer.svg" alt="" class="nav-icon" />
+            <span class="nav-item-index">03</span>
+            <span class="nav-item-text">Печать</span>
+          </button>
+          <button class="nav-item" data-nav="telemetry" data-focus="telemetryPanel" data-stage="monitor" type="button">
+            <img src="./assets/icons/simulation.svg" alt="" class="nav-icon" />
+            <span class="nav-item-index">04</span>
+            <span class="nav-item-text">Телеметрия</span>
+          </button>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Конфигурация</div>
+          <button class="nav-item active" data-nav="slicing" data-focus="slicerPanel" data-stage="prepare" type="button">
+            <img src="./assets/icons/settings.svg" alt="" class="nav-icon" />
+            <span class="nav-item-index">05</span>
+            <span class="nav-item-text">Слайсинг</span>
+          </button>
+          <button class="nav-item" data-nav="profiles" data-focus="modelsPanel" data-stage="prepare" type="button">
+            <img src="./assets/icons/history.svg" alt="" class="nav-icon" />
+            <span class="nav-item-index">06</span>
+            <span class="nav-item-text">Профили</span>
+          </button>
+          <button class="nav-item" data-nav="projects" data-focus="alertsPanel" data-stage="preview" type="button">
+            <img src="./assets/icons/warning.svg" alt="" class="nav-icon" />
+            <span class="nav-item-index">07</span>
+            <span class="nav-item-text">Проекты</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="runtime-badge">
+          <div class="status-dot"></div>
+          <div class="runtime-badge-info">
+            <div class="runtime-badge-label">Состояние контура</div>
+            <div class="runtime-badge-value" id="runtimeStateText">СИСТЕМА СТАБИЛЬНА</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div class="runtime-status">
+          <div class="status-dot"></div>
+          <div class="runtime-mode">
+            <div class="runtime-label">Режим исполнения</div>
+            <div class="runtime-value" id="runtimeMode">ПОДГОТОВКА</div>
+          </div>
+        </div>
+
+        <div class="stage-rail" id="stageRail"></div>
+
+        <div class="system-controls">
+          <div class="audio-control" id="audioControl">
+            <button id="audioToggleButton" class="audio-toggle-button" type="button" aria-pressed="false">
+              <img id="audioToggleIcon" class="audio-toggle-icon" src="./assets/icons/sound-on.svg" alt="" />
+              <span id="audioToggleText">Звук</span>
+            </button>
+            <input id="audioVolumeControl" class="audio-volume-control" type="range" min="0" max="100" value="72" aria-label="Громкость интерфейса" />
+          </div>
+        <div class="ai-confidence">
+          <div class="ai-confidence-info">
+            <div class="ai-confidence-label">Достоверность AI</div>
+            <div class="ai-confidence-value" id="aiConfidence">98%</div>
+          </div>
+        </div>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <section class="panel telemetry-panel" id="telemetryPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-label">Контур телеметрии</div>
+              <div class="panel-title">Телеметрия процесса</div>
+            </div>
+            <div class="panel-status">СТАБИЛЬНО</div>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="metric-top">
+                <div class="metric-label">Сопло</div>
+                <div class="metric-trend" id="nozzleTrend">В допуске</div>
+              </div>
+              <div class="metric-value" id="nozzleTemp">215.0°C</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-top">
+                <div class="metric-label">Стол</div>
+                <div class="metric-trend" id="bedTrend">Плато</div>
+              </div>
+              <div class="metric-value" id="bedTemp">60.0°C</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-top">
+                <div class="metric-label">Скорость</div>
+                <div class="metric-trend" id="speedTrend">Номинал</div>
+              </div>
+              <div class="metric-value" id="printSpeed">120 мм/с</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-top">
+                <div class="metric-label">Вибрация</div>
+                <div class="metric-trend" id="vibrationTrend">Контроль</div>
+              </div>
+              <div class="metric-value" id="vibrationValue">0.12</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel viewer-panel" id="viewerPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-label">Контур визуализации</div>
+              <div class="panel-title">Подготовка, предпросмотр и мониторинг Anycubic Mega X</div>
+            </div>
+            <div class="panel-status">АКТИВНО</div>
+          </div>
+
+          <div class="viewer-runtime">
+            <div class="viewer-scanline"></div>
+            <div class="viewer-overlay">
+              <div class="viewer-runtime-status viewer-runtime-status-top">
+                <div class="viewer-tag" id="viewerMachineLabel">Anycubic Mega X · объём печати 300×300×305</div>
+                <div class="viewer-tag" id="viewerProfileLabel">Профиль: Баланс</div>
+                <div class="viewer-tag" id="viewerSupportLabel">Поддержки: Адаптивно</div>
+              </div>
+
+              <div class="viewer-stage-shell">
+                <div class="viewer-core" id="viewerCore">
+                  <canvas class="viewer-canvas" id="viewerCanvas"></canvas>
+                  <div class="viewer-stage viewer-stage-prepare" data-stage-view="prepare">
+                    <div class="viewer-build-grid"></div>
+                    <div class="viewer-volume-frame"></div>
+                    <div class="viewer-volume-plane"></div>
+                    <div class="viewer-model-ghost" id="viewerModelGhost">
+                      <div class="viewer-model-shadow"></div>
+                      <div class="viewer-model-shape"></div>
+                    </div>
+                    <div class="viewer-stage-caption">
+                      <span>Подготовка модели</span>
+                      <strong id="viewerPrepareHint">Позиционирование на столе и анализ опор</strong>
+                    </div>
+                  </div>
+
+                  <div class="viewer-stage viewer-stage-preview" data-stage-view="preview">
+                    <div class="viewer-build-grid"></div>
+                    <div class="viewer-volume-frame"></div>
+                    <div class="viewer-volume-plane"></div>
+                    <div class="viewer-slice-preview">
+                      <div class="viewer-risk-zone viewer-risk-zone-a"></div>
+                      <div class="viewer-risk-zone viewer-risk-zone-b"></div>
+                      <div class="viewer-layer-stack-preview" id="viewerLayerStack"></div>
+                      <div class="viewer-path-sweep" id="viewerPathSweep"></div>
+                    </div>
+                    <div class="viewer-layer-slider">
+                      <span>Слой</span>
+                      <div class="viewer-slider-track">
+                        <div class="viewer-slider-fill" id="viewerLayerFill"></div>
+                      </div>
+                      <strong id="viewerPreviewLayerValue">142 / 856</strong>
+                    </div>
+                    <div class="viewer-path-slider">
+                      <span>Траектория</span>
+                      <div class="viewer-slider-track viewer-slider-track-horizontal">
+                        <div class="viewer-slider-fill viewer-slider-fill-horizontal" id="viewerPathFill"></div>
+                      </div>
+                      <strong id="viewerPreviewPathValue">18%</strong>
+                    </div>
+                  </div>
+
+                  <div class="viewer-stage viewer-stage-monitor" data-stage-view="monitor">
+                    <div class="viewer-build-grid"></div>
+                    <div class="viewer-monitor-switcher">
+                      <div class="viewer-monitor-scene viewer-monitor-scene-2d">
+                        <div class="viewer-printer-frame">
+                          <div class="viewer-gantry"></div>
+                          <div class="viewer-head-rail"></div>
+                          <div class="viewer-head-carriage"></div>
+                          <div class="viewer-beam"></div>
+                          <div class="viewer-part-stack">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                          </div>
+                          <div class="viewer-build-plate"></div>
+                          <div class="viewer-sensor-ping ping-a"></div>
+                          <div class="viewer-sensor-ping ping-b"></div>
+                          <div class="viewer-sensor-ping ping-c"></div>
+                        </div>
+                      </div>
+                      <div class="viewer-monitor-scene viewer-monitor-scene-3d">
+                        <div class="viewer-printer-3d">
+                          <div class="viewer-3d-guide viewer-3d-guide-a"></div>
+                          <div class="viewer-3d-guide viewer-3d-guide-b"></div>
+                          <div class="viewer-3d-gantry"></div>
+                          <div class="viewer-3d-frame"></div>
+                          <div class="viewer-3d-bed"></div>
+                          <div class="viewer-3d-bed-grid"></div>
+                          <div class="viewer-3d-build" id="viewer3DBuild">
+                            <div class="viewer-3d-build-core"></div>
+                          </div>
+                          <div class="viewer-3d-nozzle" id="viewer3DNozzle">
+                            <div class="viewer-3d-nozzle-beam"></div>
+                            <div class="viewer-3d-nozzle-core"></div>
+                            <div class="viewer-3d-nozzle-tip"></div>
+                          </div>
+                          <div class="viewer-3d-shadow"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="viewer-stage-caption">
+                      <span>Мониторинг цикла</span>
+                      <strong id="viewerMonitorHint">Печать слой за слоем с телеметрией и Safety Layer</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <aside class="viewer-inspector">
+                  <div class="viewer-inspector-block">
+                    <span class="viewer-inspector-label">Активный режим</span>
+                    <strong class="viewer-inspector-value" id="viewerInspectorStage">Подготовка</strong>
+                  </div>
+                  <div class="viewer-inspector-block">
+                    <span class="viewer-inspector-label">Модель</span>
+                    <strong class="viewer-inspector-value" id="viewerInspectorModel">Турбинный корпус NX-14</strong>
+                  </div>
+                  <div class="viewer-inspector-block">
+                    <span class="viewer-inspector-label">Слой / путь</span>
+                    <strong class="viewer-inspector-value" id="viewerInspectorLayer">142 / 856 · 18%</strong>
+                  </div>
+                  <div class="viewer-inspector-block">
+                    <span class="viewer-inspector-label">Риск печати</span>
+                    <strong class="viewer-inspector-value" id="viewerInspectorRisk">Низкий</strong>
+                  </div>
+                  <div class="viewer-inspector-block">
+                    <span class="viewer-inspector-label">Оценка времени</span>
+                    <strong class="viewer-inspector-value" id="viewerInspectorEta">3 ч 16 мин</strong>
+                  </div>
+                  <div class="viewer-inspector-block">
+                    <span class="viewer-inspector-label">Опоры / AI</span>
+                    <strong class="viewer-inspector-value" id="viewerInspectorSupport">Адаптивно · 98%</strong>
+                  </div>
+                </aside>
+              </div>
+
+              <div class="viewer-runtime-status viewer-runtime-status-bottom">
+                <div class="viewer-tag" id="viewerState">СТАБИЛЬНЫЙ ПОТОК</div>
+                <div class="viewer-tag" id="viewerStageHint">Подготовка модели к нарезке</div>
+                <button id="viewerFullscreenButton" class="viewer-tag viewer-fullscreen-button" type="button">Развернуть</button>
+                <div class="viewer-monitor-mode" id="viewerMonitorMode">
+                  <button class="viewer-monitor-mode-button active" data-monitor-view="3d" type="button">3D</button>
+                </div>
+                <div class="viewer-tag" id="currentCommandText">G28 ; home all axes</div>
+                <div class="viewer-tag" id="viewerActionHint">Готово к предпросмотру</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel terminal-panel" id="terminalPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-label">Операционный журнал</div>
+              <div class="panel-title">События контура и журнал телеметрии</div>
+            </div>
+            <div class="panel-status">АКТИВНО</div>
+          </div>
+
+          <div class="terminal-stream" id="terminalOutput"></div>
+        </section>
+
+        <section class="panel controls-panel" id="controlsPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-label">Оперативная коррекция</div>
+              <div class="panel-title">Команды печати и синхронизация цикла</div>
+            </div>
+            <div class="panel-status">АКТИВНО</div>
+          </div>
+
+          <div class="job-card">
+            <div class="job-card-top">
+              <div>
+                <div class="job-card-label">Задание печати</div>
+                <div class="job-card-title" id="jobStatusText">Подготовка</div>
+              </div>
+              <div class="job-card-percent" id="jobProgressPercent">18%</div>
+            </div>
+
+            <div
+              class="job-progress-bar"
+              id="jobProgressBar"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="18"
+            ></div>
+
+            <div class="job-card-meta">
+              <div class="job-meta-item">
+                <span>Слой</span>
+                <strong id="layerProgressText">Слой 142 / 856</strong>
+              </div>
+              <div class="job-meta-item">
+                <span>ETA</span>
+                <strong id="timeRemainingText">3 ч 16 мин</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-cluster">
+            <button class="runtime-action primary" id="startPrintButton" type="button">Старт</button>
+            <button class="runtime-action" id="pausePrintButton" type="button">Пауза</button>
+            <button class="runtime-action ghost" id="stopPrintButton" type="button">Стоп</button>
+          </div>
+
+          <div class="defect-cluster">
+            <div class="control-top">
+              <div class="control-label">Инъекция дефектов</div>
+              <div class="control-value">Эталон</div>
+            </div>
+            <div class="defect-buttons" id="defectButtons"></div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-top">
+              <div class="control-label">Скорость печати</div>
+              <div class="control-value" id="speedValue">120 мм/с</div>
+            </div>
+            <div class="control-slider">
+              <input id="speedControl" type="range" min="40" max="220" value="120" />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-top">
+              <div class="control-label">Подача материала</div>
+              <div class="control-value" id="flowValue">100%</div>
+            </div>
+            <div class="control-slider">
+              <input id="flowControl" type="range" min="80" max="140" value="100" />
+            </div>
+          </div>
+        </section>
+
+        <section class="panel slicer-panel" id="slicerPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-label">Параметры подготовки</div>
+              <div class="panel-title">Параметры слайсинга и профили Cura-логики</div>
+            </div>
+            <div class="panel-status">ОПТИМИЗИРОВАНО</div>
+          </div>
+
+          <div class="slicer-section">
+            <div class="slicer-section-title">Intent-профили</div>
+            <div class="preset-grid" id="presetGrid"></div>
+          </div>
+
+          <div class="slicer-settings">
+            <div class="slicer-setting">
+              <div class="slicer-setting-top">
+                <div class="slicer-setting-label">Высота слоя</div>
+                <div class="slicer-setting-value" id="layerHeightValue">0.20 мм</div>
+              </div>
+              <input id="layerHeightControl" type="range" min="8" max="32" value="20" />
+            </div>
+
+            <div class="slicer-setting">
+              <div class="slicer-setting-top">
+                <div class="slicer-setting-label">Заполнение</div>
+                <div class="slicer-setting-value" id="infillValue">18%</div>
+              </div>
+              <input id="infillControl" type="range" min="10" max="60" value="18" />
+            </div>
+
+            <div class="slicer-setting">
+              <div class="slicer-setting-top">
+                <div class="slicer-setting-label">Температура сопла</div>
+                <div class="slicer-setting-value" id="nozzleControlValue">215°C</div>
+              </div>
+              <input id="nozzleControl" type="range" min="180" max="280" value="215" />
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="toggle-title">Адаптивные поддержки</div>
+                <div class="toggle-meta">AI добавляет опоры только в рискованных зонах геометрии.</div>
+              </div>
+              <label class="switch">
+                <input id="supportToggle" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="toggle-title">AI-оптимизация траектории</div>
+                <div class="toggle-meta">Компенсация резонансов и теплового дрейфа в реальном времени.</div>
+              </div>
+              <label class="switch">
+                <input id="aiOptimizationToggle" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel alerts-panel" id="alertsPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-label">Диагностика</div>
+              <div class="panel-title">Safety Layer, доказательства и предупреждения</div>
+            </div>
+            <div class="panel-status">КОНТРОЛЬ</div>
+          </div>
+
+          <div class="safety-card">
+            <div class="safety-head">
+              <span class="safety-label">Safety Gate</span>
+              <strong id="safetyGateStatus">ОЖИДАНИЕ</strong>
+            </div>
+            <p id="safetyGateDetail">Нет активных корректирующих команд.</p>
+            <div class="safety-summary" id="correctionSummary">Нет примененных команд.</div>
+          </div>
+
+          <div class="evidence-card">
+            <div class="evidence-item">
+              <span>Frame ID</span>
+              <strong id="evidenceFrameId">#0</strong>
+            </div>
+            <div class="evidence-item">
+              <span>Timestamp</span>
+              <strong id="evidenceTimestamp">00:00</strong>
+            </div>
+          </div>
+
+          <div class="alerts-feed" id="alertsFeed"></div>
+        </section>
+
+        <section class="panel models-panel" id="modelsPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-label">Библиотека проекта</div>
+              <div class="panel-title">Библиотека моделей и подготовка задач</div>
+            </div>
+            <div class="panel-status">ГОТОВО</div>
+          </div>
+          <div class="model-list" id="modelList"></div>
+        </section>
+
+        <section class="panel ai-panel" id="aiPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-label">AI-контур</div>
+              <div class="panel-title">AI-оператор и инженерные подсказки</div>
+            </div>
+            <div class="panel-status">АКТИВНО</div>
+          </div>
+
+          <div class="ai-chat" id="aiChat"></div>
+
+          <div class="ai-input-wrapper">
+            <input id="aiInput" type="text" placeholder="Введите запрос к AI-контуру..." />
+            <button id="aiSendButton" class="ai-send-button" type="button">Отправить</button>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="./assets/manifest.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

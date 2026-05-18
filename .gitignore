@@ -1,0 +1,22 @@
+.codex/
+
+# Local analysis and temporary folders
+.analysis/
+.tmp-*/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Common dependency/output folders
+node_modules/
+dist/
+build/
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
