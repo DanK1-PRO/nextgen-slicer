@@ -1687,6 +1687,24 @@ body[data-runtime='critical'] .viewer-core {
     font-size: 28px;
   }
 
+  body[data-viewport-mode='mobile-landscape'] .terminal-stream {
+    padding-right: 4px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .ai-chat {
+    padding-right: 6px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .terminal-line {
+    gap: 12px;
+    padding: 10px 12px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .terminal-time {
+    flex-basis: 64px;
+    min-width: 64px;
+  }
+
   body[data-viewport-mode='mobile-landscape'] .job-card-meta {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1739,6 +1757,20 @@ body[data-runtime='critical'] .viewer-core {
 
   body[data-viewport-mode='mobile-landscape'] .toggle-row .switch {
     align-self: auto;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .operator-action-buttons,
+  body[data-viewport-mode='mobile-landscape'] .evidence-meta-row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .operator-button {
+    width: auto;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .evidence-card {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 }
 

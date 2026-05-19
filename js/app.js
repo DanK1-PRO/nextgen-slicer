@@ -620,18 +620,18 @@ function applyMobileLandscapeScale() {
     longestSide <= 950 ||
     shortestSide <= 430
   ) {
-    ViewportShellState.designWidth = 1280;
-    ViewportShellState.designHeight = 720;
+    ViewportShellState.designWidth = 1220;
+    ViewportShellState.designHeight = 700;
   } else if (longestSide <= 1180) {
-    ViewportShellState.designWidth = 1366;
-    ViewportShellState.designHeight = 768;
+    ViewportShellState.designWidth = 1320;
+    ViewportShellState.designHeight = 760;
   } else {
     ViewportShellState.designWidth = 1600;
     ViewportShellState.designHeight = 900;
   }
 
-  const horizontalInset = 16;
-  const verticalInset = 16;
+  const horizontalInset = 8;
+  const verticalInset = 8;
   const availableWidth =
     window.innerWidth - (horizontalInset * 2);
   const availableHeight =

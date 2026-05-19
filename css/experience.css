@@ -3647,6 +3647,15 @@ body[data-runtime='recovering'] .proof-card-status {
     max-width: 100%;
   }
 
+  body[data-viewport-mode='mobile-landscape'] .viewer-monitor-mode {
+    width: auto;
+    justify-content: flex-start;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-monitor-mode-button {
+    flex: 0 0 auto;
+  }
+
   body[data-viewport-mode='mobile-landscape'] #viewerMachineLabel,
   body[data-viewport-mode='mobile-landscape'] #viewerProfileLabel,
   body[data-viewport-mode='mobile-landscape'] #viewerSupportLabel,
