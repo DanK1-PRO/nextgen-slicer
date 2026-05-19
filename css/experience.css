@@ -3609,7 +3609,7 @@ body[data-runtime='recovering'] .proof-card-status {
   body[data-viewport-mode='mobile-landscape'] .stage-rail {
     order: 0;
     width: auto;
-    min-width: 360px;
+    min-width: 380px;
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-stage-shell {
@@ -3621,19 +3621,19 @@ body[data-runtime='recovering'] .proof-card-status {
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-core {
-    height: clamp(340px, 44vh, 420px);
-    border-radius: 24px;
+    height: 420px;
+    border-radius: 28px;
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-inspector {
     grid-template-columns: 1fr;
-    padding: 16px;
-    gap: 12px;
+    padding: 18px;
+    gap: 14px;
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-runtime-status-top {
     margin-bottom: 14px;
-    padding-right: 148px;
+    padding-right: 168px;
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-runtime-status-bottom {
@@ -3677,24 +3677,24 @@ body[data-runtime='recovering'] .proof-card-status {
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-layer-slider {
-    right: 14px;
-    top: 16px;
+    right: 18px;
+    top: 18px;
     width: 76px;
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-path-slider {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-volume-frame {
-    inset: 24px 36px 52px 30px;
+    inset: 24px 40px 56px 34px;
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-volume-plane {
-    left: 42px;
-    right: 50px;
+    left: 48px;
+    right: 56px;
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-printer-3d {
@@ -3703,8 +3703,8 @@ body[data-runtime='recovering'] .proof-card-status {
 
   body[data-viewport-mode='mobile-landscape'] .viewer-3d-bed,
   body[data-viewport-mode='mobile-landscape'] .viewer-3d-bed-grid {
-    left: 54px;
-    right: 54px;
+    left: 58px;
+    right: 58px;
     height: 124px;
   }
 
@@ -3713,38 +3713,37 @@ body[data-runtime='recovering'] .proof-card-status {
   }
 
   body[data-viewport-mode='mobile-landscape'] .viewer-stage-caption {
-    left: auto;
-    right: auto;
-    bottom: auto;
+    left: 26px;
+    bottom: 22px;
     max-width: 280px;
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen {
     width: 100vw;
     height: 100vh;
-    padding: 18px;
+    padding: 26px;
     border-radius: 0;
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen .viewer-overlay {
-    padding: 18px;
-    gap: 16px;
+    padding: 28px;
+    gap: 22px;
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen .viewer-runtime {
     min-height: 0;
-    height: calc(100vh - 92px);
+    height: calc(100vh - 120px);
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen .viewer-runtime-status-top {
-    margin-bottom: 12px;
-    padding-right: 148px;
-    gap: 12px;
+    margin-bottom: 14px;
+    padding-right: 168px;
+    gap: 14px;
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen .viewer-runtime-status-bottom {
-    margin-top: 12px;
-    gap: 12px;
+    margin-top: 14px;
+    gap: 14px;
     flex-direction: row;
   }
 
@@ -3752,27 +3751,27 @@ body[data-runtime='recovering'] .proof-card-status {
     display: grid;
     grid-template-columns:
       minmax(0, 1fr)
-      minmax(280px, 340px);
-    gap: 20px;
+      minmax(360px, 420px);
+    gap: 28px;
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen .viewer-core {
-    height: min(78vh, 760px);
-    border-radius: 24px;
+    height: min(78vh, 920px);
+    border-radius: 28px;
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen .viewer-inspector {
     grid-template-columns: 1fr;
-    padding: 18px;
-    gap: 12px;
+    padding: 22px;
+    gap: 16px;
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen #viewerFullscreenButton {
     position: absolute;
-    top: 18px;
-    right: 18px;
+    top: 22px;
+    right: 22px;
     width: auto;
-    min-width: 126px;
+    min-width: 140px;
   }
 
   body[data-viewport-mode='mobile-landscape'] #viewerPanel:fullscreen #viewerMachineLabel,

@@ -607,35 +607,34 @@ function detectViewportMode() {
 }
 
 function applyMobileLandscapeScale() {
-  const longestSide = Math.max(
-    window.innerWidth,
-    window.innerHeight
-  );
-  const shortestSide = Math.min(
-    window.innerWidth,
-    window.innerHeight
-  );
+  ViewportShellState.designWidth = 1366;
+  ViewportShellState.designHeight = 768;
 
-  if (
-    longestSide <= 950 ||
-    shortestSide <= 430
-  ) {
-    ViewportShellState.designWidth = 1220;
-    ViewportShellState.designHeight = 700;
-  } else if (longestSide <= 1180) {
-    ViewportShellState.designWidth = 1320;
-    ViewportShellState.designHeight = 760;
-  } else {
-    ViewportShellState.designWidth = 1600;
-    ViewportShellState.designHeight = 900;
+  let availableWidth = window.innerWidth - 20;
+  let availableHeight = window.innerHeight - 20;
+
+  if (DOM.landscapeShell) {
+    const shellRect =
+      DOM.landscapeShell.getBoundingClientRect();
+    const shellStyles =
+      window.getComputedStyle(DOM.landscapeShell);
+    const paddingX =
+      parseFloat(shellStyles.paddingLeft || "0") +
+      parseFloat(shellStyles.paddingRight || "0");
+    const paddingY =
+      parseFloat(shellStyles.paddingTop || "0") +
+      parseFloat(shellStyles.paddingBottom || "0");
+
+    availableWidth = Math.max(
+      0,
+      shellRect.width - paddingX
+    );
+    availableHeight = Math.max(
+      0,
+      shellRect.height - paddingY
+    );
   }
 
-  const horizontalInset = 8;
-  const verticalInset = 8;
-  const availableWidth =
-    window.innerWidth - (horizontalInset * 2);
-  const availableHeight =
-    window.innerHeight - (verticalInset * 2);
   const scale = clamp(
     Math.min(
       availableWidth /
@@ -643,7 +642,7 @@ function applyMobileLandscapeScale() {
       availableHeight /
         ViewportShellState.designHeight
     ),
-    0.34,
+    0.1,
     1
   );
 
