@@ -3605,6 +3605,127 @@ body[data-runtime='recovering'] .proof-card-status {
   }
 }
 
+@media (max-width: 1180px) and (orientation: landscape) and (pointer: coarse) {
+  body[data-viewport-mode='mobile-landscape'] .stage-rail {
+    order: 0;
+    width: auto;
+    min-width: 360px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-stage-shell {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(240px, 280px);
+    gap: 20px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-core {
+    height: clamp(340px, 44vh, 420px);
+    border-radius: 24px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-inspector {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-runtime-status-top {
+    margin-bottom: 14px;
+    padding-right: 148px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-runtime-status-bottom {
+    margin-top: 14px;
+    flex-direction: row;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-runtime-status-top .viewer-tag,
+  body[data-viewport-mode='mobile-landscape'] .viewer-runtime-status-bottom .viewer-tag {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] #viewerMachineLabel,
+  body[data-viewport-mode='mobile-landscape'] #viewerProfileLabel,
+  body[data-viewport-mode='mobile-landscape'] #viewerSupportLabel,
+  body[data-viewport-mode='mobile-landscape'] #currentCommandText,
+  body[data-viewport-mode='mobile-landscape'] #viewerStageHint,
+  body[data-viewport-mode='mobile-landscape'] #viewerActionHint {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] #viewerFullscreenButton {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: auto;
+    min-width: 126px;
+    order: 0;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-layer-slider {
+    right: 14px;
+    top: 16px;
+    width: 76px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-path-slider {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-volume-frame {
+    inset: 24px 36px 52px 30px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-volume-plane {
+    left: 42px;
+    right: 50px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-printer-3d {
+    inset: 34px 56px 42px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-3d-bed,
+  body[data-viewport-mode='mobile-landscape'] .viewer-3d-bed-grid {
+    left: 54px;
+    right: 54px;
+    height: 124px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-3d-frame {
+    inset: 32px 46px 68px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-stage-caption {
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-width: 280px;
+  }
+}
+
+@keyframes rotatePhonePulse {
+  0%,
+  100% {
+    transform: rotate(0deg) translate3d(0,0,0);
+  }
+
+  35% {
+    transform: rotate(0deg) translate3d(0,0,0);
+  }
+
+  65% {
+    transform: rotate(90deg) translate3d(12px,-4px,0);
+  }
+}
+
 /* ========================================
    ANIMATIONS
 ======================================== */

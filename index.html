@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>NextGen Slicer</title>
   <link rel="icon" type="image/svg+xml" href="./assets/logo/nextgen-icon.svg" />
   <link rel="alternate icon" type="image/png" href="./assets/logo/favicon.png" />
@@ -38,6 +38,22 @@
     </div>
   </div>
 
+  <div class="rotate-device-overlay" id="rotateDeviceOverlay" aria-hidden="true">
+    <div class="rotate-device-card">
+      <div class="rotate-device-icon" aria-hidden="true">
+        <span class="rotate-device-phone"></span>
+        <span class="rotate-device-arrow"></span>
+      </div>
+      <div class="rotate-device-title">Поверните телефон горизонтально</div>
+      <div class="rotate-device-copy">
+        NextGen Slicer использует операторский интерфейс с 3D-контуром,
+        мониторингом и агентами. Для корректной работы нужен landscape-режим.
+      </div>
+    </div>
+  </div>
+
+  <div class="landscape-shell" id="landscapeShell">
+    <div class="landscape-shell-inner" id="landscapeShellInner">
   <div id="app">
     <aside class="sidebar">
       <div class="logo">
@@ -536,6 +552,8 @@
         </section>
       </section>
     </main>
+  </div>
+    </div>
   </div>
 
   <script src="./assets/manifest.js"></script>

@@ -11,6 +11,13 @@ console.clear();
 
 const DOM = {
   body: document.body,
+  appRoot: document.getElementById("app"),
+  landscapeShell:
+    document.getElementById("landscapeShell"),
+  landscapeShellInner:
+    document.getElementById("landscapeShellInner"),
+  rotateDeviceOverlay:
+    document.getElementById("rotateDeviceOverlay"),
   bootLoader: document.getElementById("bootLoader"),
   bootLoaderStatus:
     document.getElementById("bootLoaderStatus"),
@@ -565,6 +572,155 @@ function randomBetween(min, max) {
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+const ViewportShellState = {
+  designWidth: 1600,
+  designHeight: 900,
+  activeMode: "desktop",
+  listenersBound: false,
+  frameRequested: false
+};
+
+function detectViewportMode() {
+  const isCoarsePointer = window.matchMedia(
+    "(pointer: coarse)"
+  ).matches;
+  const isLandscape = window.matchMedia(
+    "(orientation: landscape)"
+  ).matches;
+  const shortestSide = Math.min(
+    window.innerWidth,
+    window.innerHeight
+  );
+
+  const shouldUseMobileShell =
+    isCoarsePointer && shortestSide <= 900;
+
+  if (!shouldUseMobileShell) {
+    return "desktop";
+  }
+
+  return isLandscape
+    ? "mobile-landscape"
+    : "mobile-portrait";
+}
+
+function applyMobileLandscapeScale() {
+  const horizontalInset = 16;
+  const verticalInset = 16;
+  const availableWidth =
+    window.innerWidth - (horizontalInset * 2);
+  const availableHeight =
+    window.innerHeight - (verticalInset * 2);
+  const scale = clamp(
+    Math.min(
+      availableWidth /
+        ViewportShellState.designWidth,
+      availableHeight /
+        ViewportShellState.designHeight
+    ),
+    0.34,
+    1
+  );
+
+  document.documentElement.style.setProperty(
+    "--app-design-width",
+    String(ViewportShellState.designWidth) + "px"
+  );
+  document.documentElement.style.setProperty(
+    "--app-design-height",
+    String(ViewportShellState.designHeight) + "px"
+  );
+  document.documentElement.style.setProperty(
+    "--mobile-scale",
+    String(scale)
+  );
+  document.documentElement.style.setProperty(
+    "--mobile-shell-width",
+    String(
+      Math.round(
+        ViewportShellState.designWidth * scale
+      )
+    ) + "px"
+  );
+  document.documentElement.style.setProperty(
+    "--mobile-shell-height",
+    String(
+      Math.round(
+        ViewportShellState.designHeight * scale
+      )
+    ) + "px"
+  );
+}
+
+function updateViewportMode() {
+  const nextMode = detectViewportMode();
+
+  if (nextMode === "mobile-landscape") {
+    applyMobileLandscapeScale();
+  } else {
+    document.documentElement.style.setProperty(
+      "--mobile-scale",
+      "1"
+    );
+    document.documentElement.style.setProperty(
+      "--mobile-shell-width",
+      "100%"
+    );
+    document.documentElement.style.setProperty(
+      "--mobile-shell-height",
+      "100%"
+    );
+  }
+
+  if (DOM.body) {
+    DOM.body.dataset.viewportMode = nextMode;
+  }
+
+  if (DOM.rotateDeviceOverlay) {
+    DOM.rotateDeviceOverlay.setAttribute(
+      "aria-hidden",
+      String(nextMode !== "mobile-portrait")
+    );
+  }
+
+  ViewportShellState.activeMode = nextMode;
+  RuntimeEvents.emit("ui:render", {});
+}
+
+function scheduleViewportModeUpdate() {
+  if (ViewportShellState.frameRequested) {
+    return;
+  }
+
+  ViewportShellState.frameRequested = true;
+
+  window.requestAnimationFrame(
+    function onViewportShellFrame() {
+      ViewportShellState.frameRequested = false;
+      updateViewportMode();
+    }
+  );
+}
+
+function initializeViewportShell() {
+  if (ViewportShellState.listenersBound) {
+    scheduleViewportModeUpdate();
+    return;
+  }
+
+  ViewportShellState.listenersBound = true;
+  scheduleViewportModeUpdate();
+
+  window.addEventListener(
+    "resize",
+    scheduleViewportModeUpdate
+  );
+  window.addEventListener(
+    "orientationchange",
+    scheduleViewportModeUpdate
+  );
 }
 
 function nowTime() {
@@ -6765,6 +6921,7 @@ function initializeViewerControls() {
     "fullscreenchange",
     function onViewerFullscreenChange() {
       syncViewerFullscreenButton();
+      scheduleViewportModeUpdate();
       RuntimeEvents.emit("ui:render", {});
     }
   );
@@ -6860,6 +7017,7 @@ function initializeRuntime() {
   );
 
   initializeRuntimeEvents();
+  initializeViewportShell();
   initializeControls();
   initializeViewerControls();
   initializeAIChat();

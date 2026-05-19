@@ -1647,6 +1647,101 @@ body[data-runtime='critical'] .viewer-core {
   }
 }
 
+@media (max-width: 1180px) and (orientation: landscape) and (pointer: coarse) {
+  body[data-viewport-mode='mobile-landscape'] .panel {
+    padding: var(--panel-padding-lg);
+    border-radius: var(--panel-radius-lg);
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .panel-header {
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .panel-title {
+    font-size: var(--font-size-lg);
+    line-height: 1.18;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .terminal-panel .panel-title,
+  body[data-viewport-mode='mobile-landscape'] .alerts-panel .panel-title,
+  body[data-viewport-mode='mobile-landscape'] .ai-panel .panel-title,
+  body[data-viewport-mode='mobile-landscape'] .slicer-panel .panel-title,
+  body[data-viewport-mode='mobile-landscape'] .controls-panel .panel-title {
+    font-size: 18px;
+    line-height: 1.14;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .metric-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    padding-right: 6px;
+    overflow: auto;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .metric-card {
+    padding: 18px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .metric-value {
+    font-size: 28px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .job-card-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .action-cluster {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .defect-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .preset-grid {
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .model-card {
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .model-preview {
+    width: 72px;
+    height: 72px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .ai-input-wrapper {
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .ai-send-button {
+    width: auto;
+    min-height: 0;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .slicer-setting-top,
+  body[data-viewport-mode='mobile-landscape'] .toggle-row,
+  body[data-viewport-mode='mobile-landscape'] .control-top {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .slicer-setting-value,
+  body[data-viewport-mode='mobile-landscape'] .control-value {
+    text-align: right;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .toggle-row .switch {
+    align-self: auto;
+  }
+}
+
 .toggle-meta {
   font-size: 12px;
 
