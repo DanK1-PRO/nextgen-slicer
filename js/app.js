@@ -607,6 +607,29 @@ function detectViewportMode() {
 }
 
 function applyMobileLandscapeScale() {
+  const longestSide = Math.max(
+    window.innerWidth,
+    window.innerHeight
+  );
+  const shortestSide = Math.min(
+    window.innerWidth,
+    window.innerHeight
+  );
+
+  if (
+    longestSide <= 950 ||
+    shortestSide <= 430
+  ) {
+    ViewportShellState.designWidth = 1280;
+    ViewportShellState.designHeight = 720;
+  } else if (longestSide <= 1180) {
+    ViewportShellState.designWidth = 1366;
+    ViewportShellState.designHeight = 768;
+  } else {
+    ViewportShellState.designWidth = 1600;
+    ViewportShellState.designHeight = 900;
+  }
+
   const horizontalInset = 16;
   const verticalInset = 16;
   const availableWidth =
