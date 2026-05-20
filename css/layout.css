@@ -256,10 +256,10 @@ body[data-viewport-mode='mobile-landscape'] .landscape-shell-inner {
 }
 
 body[data-viewport-mode='mobile-landscape'] #app {
-  width: var(--app-design-width, 1600px);
-  height: var(--app-design-height, 900px);
-  min-width: var(--app-design-width, 1600px);
-  min-height: var(--app-design-height, 900px);
+  width: var(--app-design-width, 1366px);
+  height: var(--app-design-height, 920px);
+  min-width: var(--app-design-width, 1366px);
+  min-height: var(--app-design-height, 920px);
   max-width: none;
   max-height: none;
   min-height: 0;

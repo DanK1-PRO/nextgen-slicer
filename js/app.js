@@ -578,7 +578,7 @@ function clamp(value, min, max) {
 
 const ViewportShellState = {
   designWidth: 1366,
-  designHeight: 768,
+  designHeight: 920,
   activeMode: "desktop",
   listenersBound: false,
   frameRequested: false
@@ -692,32 +692,38 @@ function exitDetachedViewerFullscreen() {
 
 function applyMobileLandscapeScale() {
   ViewportShellState.designWidth = 1366;
-  ViewportShellState.designHeight = 768;
+  ViewportShellState.designHeight = 920;
 
-  let availableWidth = window.innerWidth - 20;
-  let availableHeight = window.innerHeight - 20;
+  const visualViewportRef =
+    window.visualViewport || window;
+  const viewportWidth =
+    visualViewportRef.width || window.innerWidth;
+  const viewportHeight =
+    visualViewportRef.height ||
+    window.innerHeight;
+
+  let safeInsetX = 0;
+  let safeInsetY = 0;
 
   if (DOM.landscapeShell) {
-    const shellRect =
-      DOM.landscapeShell.getBoundingClientRect();
     const shellStyles =
       window.getComputedStyle(DOM.landscapeShell);
-    const paddingX =
+    safeInsetX =
       parseFloat(shellStyles.paddingLeft || "0") +
       parseFloat(shellStyles.paddingRight || "0");
-    const paddingY =
+    safeInsetY =
       parseFloat(shellStyles.paddingTop || "0") +
       parseFloat(shellStyles.paddingBottom || "0");
-
-    availableWidth = Math.max(
-      0,
-      shellRect.width - paddingX
-    );
-    availableHeight = Math.max(
-      0,
-      shellRect.height - paddingY
-    );
   }
+
+  const availableWidth = Math.max(
+    1,
+    viewportWidth - safeInsetX
+  );
+  const availableHeight = Math.max(
+    1,
+    viewportHeight - safeInsetY
+  );
 
   const scale = clamp(
     Math.min(
@@ -725,7 +731,7 @@ function applyMobileLandscapeScale() {
         ViewportShellState.designWidth,
       availableHeight /
         ViewportShellState.designHeight
-    ),
+    ) * 0.985,
     0.1,
     1
   );
