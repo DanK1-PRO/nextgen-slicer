@@ -1597,3 +1597,78 @@ body[data-stage='monitor'] .ai-panel {
     touch-action: pan-y;
   }
 }
+
+@media (orientation: landscape) and (pointer: coarse) {
+  body[data-viewport-mode='mobile-landscape'] #app {
+    display: grid !important;
+    grid-template-columns: 280px 1fr !important;
+    height: var(--app-design-height, 768px) !important;
+    min-height: var(--app-design-height, 768px) !important;
+    overflow: hidden !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .sidebar {
+    position: relative !important;
+    inset: auto !important;
+    width: auto !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 28px 22px !important;
+    border-top: none !important;
+    border-right: 1px solid var(--border-primary) !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .workspace {
+    order: initial !important;
+    padding: 20px !important;
+    overflow: hidden !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .topbar {
+    position: relative !important;
+    top: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 18px !important;
+    min-height: 76px !important;
+    padding: 0 24px !important;
+    margin-bottom: 20px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .dashboard-grid {
+    display: grid !important;
+    gap: 20px !important;
+    overflow: hidden !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'][data-stage='prepare'] .dashboard-grid {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(320px, 1fr) !important;
+    grid-template-rows:
+      minmax(360px, 1fr)
+      minmax(360px, 1fr) !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'][data-stage='preview'] .dashboard-grid {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(320px, 1fr) !important;
+    grid-template-rows:
+      minmax(360px, 1fr)
+      minmax(360px, 1fr) !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'][data-stage='monitor'] .dashboard-grid {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(280px, 0.8fr)
+      minmax(280px, 0.8fr) !important;
+    grid-template-rows:
+      minmax(220px, 0.9fr)
+      minmax(240px, 1fr)
+      minmax(240px, 0.9fr) !important;
+  }
+}

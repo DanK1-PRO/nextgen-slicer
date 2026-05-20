@@ -1774,6 +1774,53 @@ body[data-runtime='critical'] .viewer-core {
   }
 }
 
+@media (orientation: landscape) and (pointer: coarse) {
+  body[data-viewport-mode='mobile-landscape'] .panel {
+    padding: var(--panel-padding-lg) !important;
+    border-radius: var(--panel-radius-lg) !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .metric-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+    gap: 14px !important;
+    overflow-y: auto !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .model-card {
+    flex-direction: row !important;
+    gap: 14px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .model-preview {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .ai-input-wrapper {
+    flex-direction: row !important;
+    gap: 10px !important;
+    padding: 10px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .ai-send-button {
+    width: auto !important;
+    min-height: 0 !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .slicer-setting-top,
+  body[data-viewport-mode='mobile-landscape'] .toggle-row,
+  body[data-viewport-mode='mobile-landscape'] .control-top {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .slicer-setting-value,
+  body[data-viewport-mode='mobile-landscape'] .control-value {
+    text-align: right !important;
+  }
+}
+
 .toggle-meta {
   font-size: 12px;
 

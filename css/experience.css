@@ -3863,6 +3863,61 @@ body[data-runtime='recovering'] .proof-card-status {
   }
 }
 
+@media (orientation: landscape) and (pointer: coarse) {
+  body[data-viewport-mode='mobile-landscape'] .stage-rail {
+    order: 0 !important;
+    width: auto !important;
+    min-width: 380px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-stage-shell {
+    display: grid !important;
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(240px, 280px) !important;
+    gap: 20px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-core {
+    height: 420px !important;
+    border-radius: 28px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-inspector {
+    grid-template-columns: 1fr !important;
+    padding: 18px !important;
+    gap: 14px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-runtime-status-top {
+    margin-bottom: 14px !important;
+    padding-right: 168px !important;
+    gap: 14px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-runtime-status-bottom {
+    margin-top: 14px !important;
+    flex-direction: row !important;
+    gap: 14px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] .viewer-stage-caption {
+    left: 26px !important;
+    right: auto !important;
+    bottom: 22px !important;
+    max-width: 280px !important;
+  }
+
+  body[data-viewport-mode='mobile-landscape'] #viewerFullscreenButton {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    width: auto !important;
+    min-width: 126px !important;
+    order: 0 !important;
+  }
+}
+
 @keyframes rotatePhonePulse {
   0%,
   100% {
