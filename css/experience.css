@@ -1099,6 +1099,83 @@ body[data-stage='monitor'] .viewer-monitor-mode {
     0 0 0 1px rgba(104,232,255,0.06);
 }
 
+.viewer-fullscreen-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  display: none;
+  overflow: hidden;
+  padding:
+    env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  background:
+    rgba(4,8,13,0.98);
+}
+
+body.viewer-expanded {
+  overflow: hidden;
+}
+
+body.viewer-expanded .viewer-fullscreen-layer {
+  display: block;
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel {
+  width: 100%;
+  height: 100%;
+  padding: 26px;
+  border-radius: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(12,18,28,0.98),
+      rgba(8,12,20,0.99)
+    );
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel .viewer-overlay {
+  padding: 28px;
+  gap: 22px;
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel #viewerFullscreenButton {
+  top: 22px;
+  right: 22px;
+  min-width: 140px;
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel .viewer-runtime {
+  min-height: 0;
+  height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 120px);
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel .viewer-runtime-status-top {
+  padding-right: 168px;
+  gap: 14px;
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel .viewer-runtime-status-bottom {
+  gap: 14px;
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel .viewer-stage-shell {
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(360px, 420px);
+  gap: 28px;
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel .viewer-core {
+  height: min(78dvh, 920px);
+}
+
+body.viewer-expanded .viewer-fullscreen-layer #viewerPanel .viewer-inspector {
+  padding: 22px;
+  gap: 16px;
+}
+
 #viewerPanel:fullscreen {
   width: 100vw;
   height: 100vh;

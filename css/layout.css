@@ -227,32 +227,41 @@ body[data-viewport-mode='mobile-portrait'] .landscape-shell {
 
 body[data-viewport-mode='mobile-landscape'] {
   overflow: hidden;
+  width: 100dvw;
+  height: 100dvh;
 }
 
 body[data-viewport-mode='mobile-landscape'] .landscape-shell {
   position: fixed;
   inset: 0;
+  width: 100dvw;
+  height: 100dvh;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   overflow: hidden;
   padding:
-    calc(10px + env(safe-area-inset-top))
-    calc(10px + env(safe-area-inset-right))
-    calc(10px + env(safe-area-inset-bottom))
-    calc(10px + env(safe-area-inset-left));
+    env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
 }
 
 body[data-viewport-mode='mobile-landscape'] .landscape-shell-inner {
   position: relative;
   width: var(--mobile-shell-width, 100%);
   height: var(--mobile-shell-height, 100%);
-  overflow: hidden;
+  overflow: visible;
+  flex: 0 0 auto;
 }
 
 body[data-viewport-mode='mobile-landscape'] #app {
   width: var(--app-design-width, 1600px);
   height: var(--app-design-height, 900px);
+  min-width: var(--app-design-width, 1600px);
+  min-height: var(--app-design-height, 900px);
+  max-width: none;
+  max-height: none;
   min-height: 0;
   transform: scale(var(--mobile-scale, 1));
   transform-origin: top left;

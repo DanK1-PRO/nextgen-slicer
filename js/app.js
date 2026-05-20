@@ -18,6 +18,8 @@ const DOM = {
     document.getElementById("landscapeShellInner"),
   rotateDeviceOverlay:
     document.getElementById("rotateDeviceOverlay"),
+  viewerFullscreenLayer:
+    document.getElementById("viewerFullscreenLayer"),
   bootLoader: document.getElementById("bootLoader"),
   bootLoaderStatus:
     document.getElementById("bootLoaderStatus"),
@@ -575,23 +577,34 @@ function clamp(value, min, max) {
 }
 
 const ViewportShellState = {
-  designWidth: 1600,
-  designHeight: 900,
+  designWidth: 1366,
+  designHeight: 768,
   activeMode: "desktop",
   listenersBound: false,
   frameRequested: false
 };
 
+const ViewerFullscreenState = {
+  detached: false,
+  originalParent: null,
+  originalNextSibling: null
+};
+
 function detectViewportMode() {
+  const visualViewportRef =
+    window.visualViewport || window;
+  const viewportWidth =
+    visualViewportRef.width || window.innerWidth;
+  const viewportHeight =
+    visualViewportRef.height || window.innerHeight;
   const isCoarsePointer = window.matchMedia(
     "(pointer: coarse)"
   ).matches;
-  const isLandscape = window.matchMedia(
-    "(orientation: landscape)"
-  ).matches;
+  const isLandscape =
+    viewportWidth >= viewportHeight;
   const shortestSide = Math.min(
-    window.innerWidth,
-    window.innerHeight
+    viewportWidth,
+    viewportHeight
   );
 
   const shouldUseMobileShell =
@@ -604,6 +617,77 @@ function detectViewportMode() {
   return isLandscape
     ? "mobile-landscape"
     : "mobile-portrait";
+}
+
+function isDetachedViewerFullscreen() {
+  return ViewerFullscreenState.detached;
+}
+
+function enterDetachedViewerFullscreen() {
+  if (
+    !DOM.viewerPanel ||
+    !DOM.viewerFullscreenLayer ||
+    ViewerFullscreenState.detached
+  ) {
+    return;
+  }
+
+  ViewerFullscreenState.originalParent =
+    DOM.viewerPanel.parentNode;
+  ViewerFullscreenState.originalNextSibling =
+    DOM.viewerPanel.nextSibling;
+
+  DOM.viewerFullscreenLayer.appendChild(
+    DOM.viewerPanel
+  );
+  DOM.viewerFullscreenLayer.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  DOM.body.classList.add("viewer-expanded");
+  ViewerFullscreenState.detached = true;
+  syncViewerFullscreenButton();
+  scheduleViewportModeUpdate();
+  RuntimeEvents.emit("ui:render", {});
+}
+
+function exitDetachedViewerFullscreen() {
+  if (
+    !DOM.viewerPanel ||
+    !ViewerFullscreenState.detached ||
+    !ViewerFullscreenState.originalParent
+  ) {
+    return;
+  }
+
+  if (ViewerFullscreenState.originalNextSibling) {
+    ViewerFullscreenState.originalParent.insertBefore(
+      DOM.viewerPanel,
+      ViewerFullscreenState.originalNextSibling
+    );
+  } else {
+    ViewerFullscreenState.originalParent.appendChild(
+      DOM.viewerPanel
+    );
+  }
+
+  DOM.body.classList.remove("viewer-expanded");
+
+  if (DOM.viewerFullscreenLayer) {
+    DOM.viewerFullscreenLayer.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+  }
+
+  ViewerFullscreenState.detached = false;
+  ViewerFullscreenState.originalParent = null;
+  ViewerFullscreenState.originalNextSibling =
+    null;
+  syncViewerFullscreenButton();
+  scheduleViewportModeUpdate();
+  RuntimeEvents.emit("ui:render", {});
 }
 
 function applyMobileLandscapeScale() {
@@ -679,6 +763,13 @@ function applyMobileLandscapeScale() {
 function updateViewportMode() {
   const nextMode = detectViewportMode();
 
+  if (
+    nextMode !== "mobile-landscape" &&
+    ViewerFullscreenState.detached
+  ) {
+    exitDetachedViewerFullscreen();
+  }
+
   if (nextMode === "mobile-landscape") {
     applyMobileLandscapeScale();
   } else {
@@ -743,6 +834,17 @@ function initializeViewportShell() {
     "orientationchange",
     scheduleViewportModeUpdate
   );
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener(
+      "resize",
+      scheduleViewportModeUpdate
+    );
+    window.visualViewport.addEventListener(
+      "scroll",
+      scheduleViewportModeUpdate
+    );
+  }
 }
 
 function nowTime() {
@@ -2344,7 +2446,8 @@ function syncViewerFullscreenButton() {
   }
 
   const isFullscreen =
-    document.fullscreenElement === DOM.viewerPanel;
+    document.fullscreenElement === DOM.viewerPanel ||
+    isDetachedViewerFullscreen();
 
   DOM.viewerFullscreenButton.textContent =
     isFullscreen ? "Свернуть" : "Развернуть";
@@ -2356,6 +2459,20 @@ function syncViewerFullscreenButton() {
 
 function toggleViewerFullscreen() {
   if (!DOM.viewerPanel) {
+    return;
+  }
+
+  if (
+    DOM.body &&
+    DOM.body.dataset.viewportMode ===
+      "mobile-landscape"
+  ) {
+    if (isDetachedViewerFullscreen()) {
+      exitDetachedViewerFullscreen();
+      return;
+    }
+
+    enterDetachedViewerFullscreen();
     return;
   }
 
